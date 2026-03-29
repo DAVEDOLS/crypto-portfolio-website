@@ -1,0 +1,213 @@
+/* =============================================
+   CryptoPortfolio Website - Main Styles
+   ============================================= */
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #111827;
+  background-color: #f9fafb;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+.dark body {
+  color: #f3f4f6;
+  background-color: #0f172a;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.75rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+/* Navbar */
+nav {
+  transition: all 0.3s ease;
+}
+
+nav a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #22c55e;
+}
+
+nav a.active {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #22c55e;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #22c55e;
+  color: #22c55e;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #22c55e;
+  color: white;
+}
+
+/* Card Styles */
+.card {
+  background-color: white;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f1f5f9;
+}
+
+.dark .card {
+  background-color: #1e2937;
+  border-color: #334155;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f8fafc;
+  text-align: left;
+  padding: 18px 24px;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.dark th {
+  background-color: #1e2937;
+  color: #94a3b8;
+}
+
+td {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dark td {
+  border-bottom: 1px solid #334155;
+}
+
+.coin-row:hover {
+  background-color: #f8fafc;
+}
+
+.dark .coin-row:hover {
+  background-color: #1e2937;
+}
+
+/* Price Change Colors */
+.price-up {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.price-down {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Hero Section */
+.hero-bg {
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+              url('https://source.unsplash.com/random/1920x1080/?bitcoin,crypto') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #e2e8f0;
+}
+
+.dark footer {
+  border-top-color: #334155;
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: linear-gradient(to right, #22c55e, #eab308);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2 {
+    font-size: 1.85rem;
+  }
+  
+  .hero-bg {
+    height: 85vh;
+  }
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus States for Accessibility */
+a:focus, button:focus {
+  outline: 2px solid #22c55e;
+  outline-offset: 4px;
+}

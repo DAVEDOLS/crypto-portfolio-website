@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoPortfolio - Track, Learn & Grow Your Crypto Investments</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('https://source.unsplash.com/random/1920x1080/?crypto') center/cover no-repeat;
+    }
+    .coin-card:hover {
+      transform: translateY(-12px);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+        <h1 class="text-2xl font-bold">CryptoPortfolio</h1>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-green-500 font-medium">Home</a>
+        <a href="trending-coins.html" class="hover:text-green-500 transition">Trending</a>
+        <a href="how-to-buy-crypto.html" class="hover:text-green-500 transition">How to Buy</a>
+        <a href="where-to-buy-crypto.html" class="hover:text-green-500 transition">Where to Buy</a>
+        <a href="about.html" class="hover:text-green-500 transition">About</a>
+        <a href="privacy.html" class="hover:text-green-500 transition">Privacy</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+          <i class="fas fa-moon text-xl"></i>
+        </button>
+        <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl font-medium transition flex items-center gap-2">
+          <i class="fas fa-wallet"></i>
+          Connect Wallet
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-bg h-screen flex items-center text-white">
+    <div class="max-w-7xl mx-auto px-6 pt-20">
+      <div class="max-w-2xl">
+        <h1 class="text-6xl md:text-7xl font-bold leading-tight mb-6">
+          Track. Learn.<br>Build Your Crypto Future.
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 mb-10">
+          Your complete guide to cryptocurrency. Discover trending coins, learn how to buy safely, 
+          and build a smart portfolio — all in one place.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="trending-coins.html" 
+             class="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-2xl font-semibold text-lg transition flex items-center gap-3">
+            Explore Trending Coins
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="how-to-buy-crypto.html" 
+             class="border-2 border-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-2xl font-semibold text-lg transition">
+            How to Buy Crypto
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Portfolio Overview -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-3">Market Snapshot</h2>
+        <p class="text-gray-600 dark:text-gray-400">Live crypto market overview</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-3xl">
+          <p class="text-sm text-gray-500">Total Market Cap</p>
+          <p class="text-4xl font-bold mt-3">$2.48T</p>
+          <p class="text-green-500 flex items-center gap-1 mt-4">
+            <i class="fas fa-arrow-up"></i> +2.8% (24h)
+          </p>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-3xl">
+          <p class="text-sm text-gray-500">Bitcoin Price</p>
+          <p class="text-4xl font-bold mt-3">$68,245</p>
+          <p class="text-green-500 flex items-center gap-1 mt-4">
+            <i class="fas fa-arrow-up"></i> +2.45% (24h)
+          </p>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-3xl">
+          <p class="text-sm text-gray-500">24h Volume</p>
+          <p class="text-4xl font-bold mt-3">$98.4B</p>
+          <p class="text-red-500 flex items-center gap-1 mt-4">
+            <i class="fas fa-arrow-down"></i> -1.1% (24h)
+          </p>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-3xl">
+          <p class="text-sm text-gray-500">BTC Dominance</p>
+          <p class="text-4xl font-bold mt-3">52.8%</p>
+          <p class="text-green-500 flex items-center gap-1 mt-4">
+            <i class="fas fa-arrow-up"></i> +0.6%
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Trending Coins -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-4xl font-bold">Trending Coins Right Now</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Popular cryptocurrencies this week</p>
+        </div>
+        <a href="trending-coins.html" 
+           class="text-green-500 hover:text-green-600 font-medium flex items-center gap-2">
+          View All 
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="featured-coins">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold">Why CryptoPortfolio?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-green-100 dark:bg-green-900 rounded-3xl flex items-center justify-center text-4xl mb-6">📈</div>
+          <h3 class="text-2xl font-semibold mb-3">Real-Time Data</h3>
+          <p class="text-gray-600 dark:text-gray-400">Stay updated with live prices, trends, and market movements.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-blue-100 dark:bg-blue-900 rounded-3xl flex items-center justify-center text-4xl mb-6">🎓</div>
+          <h3 class="text-2xl font-semibold mb-3">Beginner Friendly</h3>
+          <p class="text-gray-600 dark:text-gray-400">Step-by-step guides to help you start investing confidently.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto bg-purple-100 dark:bg-purple-900 rounded-3xl flex items-center justify-center text-4xl mb-6">🛡️</div>
+          <h3 class="text-2xl font-semibold mb-3">Safe & Secure</h3>
+          <p class="text-gray-600 dark:text-gray-400">Learn best practices for protecting your crypto assets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-green-600 to-emerald-700 text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold mb-6">Ready to Start Your Crypto Journey?</h2>
+      <p class="text-xl mb-10 opacity-90">
+        Join thousands of users learning and building their portfolios with confidence.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="how-to-buy-crypto.html" 
+           class="bg-white text-green-700 hover:bg-gray-100 px-10 py-5 rounded-2xl font-semibold text-lg transition">
+          Learn How to Buy Crypto
+        </a>
+        <a href="trending-coins.html" 
+           class="border-2 border-white hover:bg-white hover:text-green-700 px-10 py-5 rounded-2xl font-semibold text-lg transition">
+          Explore Trending Coins
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+            <h2 class="text-2xl font-bold">CryptoPortfolio</h2>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Your complete crypto learning and tracking platform.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="trending-coins.html" class="hover:text-green-500">Trending Coins</a></li>
+            <li><a href="how-to-buy-crypto.html" class="hover:text-green-500">How to Buy Crypto</a></li>
+            <li><a href="where-to-buy-crypto.html" class="hover:text-green-500">Where to Buy</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Legal</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="privacy.html" class="hover:text-green-500">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Follow Us</h3>
+          <div class="flex gap-5 text-2xl">
+            <a href="#" class="hover:text-green-500"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center text-sm text-gray-500 mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        &copy; 2026 CryptoPortfolio. All rights reserved. | Not financial advice. Always do your own research.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sample featured coins
+    const featuredCoins = [
+      { name: "Bitcoin", symbol: "BTC", price: "68,245", change: "+2.45" },
+      { name: "Ethereum", symbol: "ETH", price: "2,654", change: "+4.12" },
+      { name: "Solana", symbol: "SOL", price: "142.85", change: "-3.67" },
+      { name: "Dogecoin", symbol: "DOGE", price: "0.142", change: "+8.95" }
+    ];
+
+    function renderFeaturedCoins() {
+      const container = document.getElementById('featured-coins');
+      container.innerHTML = '';
+
+      featuredCoins.forEach(coin => {
+        const isPositive = coin.change.startsWith('+');
+        const card = document.createElement('div');
+        card.className = `coin-card bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 transition-all`;
+        
+        card.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="font-semibold text-lg">${coin.name}</div>
+              <div class="text-sm text-gray-500">${coin.symbol}</div>
+            </div>
+            <div class="text-right">
+              <div class="font-mono text-xl font-medium">$${coin.price}</div>
+              <div class="${isPositive ? 'text-green-500' : 'text-red-500'} font-medium">
+                ${coin.change}%
+              </div>
+            </div>
+          </div>
+          <a href="trending-coins.html" 
+             class="mt-8 block text-center text-sm bg-gray-100 dark:bg-gray-800 hover:bg-green-500 hover:text-white py-3 rounded-2xl transition">
+            View Details
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+    }
+
+    // Initialize
+    function init() {
+      renderFeaturedCoins();
+      
+      // Load saved dark mode
+      if (localStorage.getItem('darkMode') === 'true' || 
+          (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

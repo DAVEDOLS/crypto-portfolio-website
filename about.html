@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Crypto Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+        <h1 class="text-2xl font-bold">CryptoPortfolio</h1>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-green-500 transition-colors">Home</a>
+        <a href="trending-coins.html" class="hover:text-green-500 transition-colors">Trending</a>
+        <a href="how-to-buy-crypto.html" class="hover:text-green-500 transition-colors">How to Buy</a>
+        <a href="where-to-buy-crypto.html" class="hover:text-green-500 transition-colors">Where to Buy</a>
+        <a href="about.html" class="text-green-500 font-medium">About</a>
+        <a href="privacy.html" class="hover:text-green-500 transition-colors">Privacy</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleDarkMode()" class="p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <i class="fas fa-moon text-xl"></i>
+        </button>
+        <a href="#" class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl font-medium transition-all">
+          <i class="fas fa-wallet"></i>
+          <span>Connect Wallet</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-br from-emerald-700 to-teal-800 text-white py-20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="w-32 h-32 mx-auto mb-8 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-6xl border border-white/30">
+        👨‍💼
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold mb-4">About Me</h1>
+      <p class="text-xl text-emerald-100 max-w-lg mx-auto">
+        Passionate crypto enthusiast helping beginners navigate the world of cryptocurrency safely and confidently.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-16">
+
+    <!-- Bio Section -->
+    <div class="grid md:grid-cols-5 gap-12 items-center">
+      <div class="md:col-span-2">
+        <div class="sticky top-24">
+          <img src="https://source.unsplash.com/random/600x600/?man,portrait" 
+               alt="Profile Photo" 
+               class="w-full rounded-3xl shadow-xl">
+        </div>
+      </div>
+
+      <div class="md:col-span-3 space-y-8">
+        <div>
+          <h2 class="text-3xl font-semibold mb-6">Hi, I'm Alex Rivera</h2>
+          <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            I'm a crypto investor, educator, and blockchain enthusiast with over 4 years of experience in the cryptocurrency space. 
+            What started as a personal journey to understand Bitcoin has now become my mission to help others avoid common mistakes and build sustainable portfolios.
+          </p>
+        </div>
+
+        <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+          <p>
+            Through this website, I share honest guides, real-time market insights, and practical knowledge so that beginners can start their crypto journey with confidence and security in mind.
+          </p>
+        </div>
+
+        <!-- Quick Facts -->
+        <div class="grid grid-cols-2 gap-6 pt-6">
+          <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl">
+            <div class="text-green-500 text-3xl mb-3">📍</div>
+            <div class="font-semibold">Based in</div>
+            <div class="text-gray-500 dark:text-gray-400">Portugal, Europe</div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl">
+            <div class="text-green-500 text-3xl mb-3">⏳</div>
+            <div class="font-semibold">Experience</div>
+            <div class="text-gray-500 dark:text-gray-400">4+ years in crypto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Crypto Journey -->
+    <div class="mt-24">
+      <h2 class="text-3xl font-bold text-center mb-12">My Crypto Journey</h2>
+      
+      <div class="space-y-12 max-w-3xl mx-auto">
+        <div class="flex gap-8">
+          <div class="w-20 flex-shrink-0 text-right">
+            <div class="font-mono text-sm text-gray-400">2022</div>
+          </div>
+          <div class="flex-1 bg-white dark:bg-gray-900 p-8 rounded-3xl">
+            <h3 class="font-semibold text-xl mb-2">First Bitcoin Purchase</h3>
+            <p class="text-gray-600 dark:text-gray-400">Bought my first BTC during the bear market and began deep-diving into blockchain technology.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-8">
+          <div class="w-20 flex-shrink-0 text-right">
+            <div class="font-mono text-sm text-gray-400">2023</div>
+          </div>
+          <div class="flex-1 bg-white dark:bg-gray-900 p-8 rounded-3xl">
+            <h3 class="font-semibold text-xl mb-2">Started Educating Others</h3>
+            <p class="text-gray-600 dark:text-gray-400">Began sharing beginner guides on social media and realized how many people needed clear, honest information.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-8">
+          <div class="w-20 flex-shrink-0 text-right">
+            <div class="font-mono text-sm text-gray-400">2025</div>
+          </div>
+          <div class="flex-1 bg-white dark:bg-gray-900 p-8 rounded-3xl">
+            <h3 class="font-semibold text-xl mb-2">Launched CryptoPortfolio</h3>
+            <p class="text-gray-600 dark:text-gray-400">Created this platform to combine education, market tracking, and practical buying guides in one place.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What I Believe -->
+    <div class="mt-24 bg-white dark:bg-gray-900 rounded-3xl p-12">
+      <h2 class="text-3xl font-bold text-center mb-10">What I Believe</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-4xl mb-4">🔐</div>
+          <h3 class="font-semibold mb-3">Security First</h3>
+          <p class="text-gray-600 dark:text-gray-400">Never leave large amounts on exchanges. Always use hardware wallets for long-term holdings.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-4">📚</div>
+          <h3 class="font-semibold mb-3">Continuous Learning</h3>
+          <p class="text-gray-600 dark:text-gray-400">The crypto space evolves rapidly. Stay humble and keep learning every day.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-4">⚖️</div>
+          <h3 class="font-semibold mb-3">Long-term Thinking</h3>
+          <p class="text-gray-600 dark:text-gray-400">Focus on fundamentals and avoid chasing hype. Patience beats greed in this market.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connect With Me -->
+    <div class="mt-24 text-center">
+      <h2 class="text-3xl font-bold mb-8">Let's Connect</h2>
+      <div class="flex justify-center gap-6 text-4xl">
+        <a href="#" class="hover:text-green-500 transition-colors"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-green-500 transition-colors"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="hover:text-green-500 transition-colors"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-green-500 transition-colors"><i class="fab fa-discord"></i></a>
+      </div>
+      <p class="mt-10 text-gray-500 dark:text-gray-400">
+        Have questions? Feel free to reach out anytime.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+            <h2 class="text-2xl font-bold">CryptoPortfolio</h2>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Your journey to smart crypto investing starts here.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="how-to-buy-crypto.html" class="hover:text-green-500">How to Buy Crypto</a></li>
+            <li><a href="where-to-buy-crypto.html" class="hover:text-green-500">Where to Buy</a></li>
+            <li><a href="trending-coins.html" class="hover:text-green-500">Trending Coins</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Legal</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="privacy.html" class="hover:text-green-500">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Follow Us</h3>
+          <div class="flex gap-4 text-2xl">
+            <a href="#" class="hover:text-green-500"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center text-sm text-gray-500 mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        &copy; 2026 CryptoPortfolio. All rights reserved. | Not financial advice.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

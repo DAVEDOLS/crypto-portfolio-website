@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trending Coins | Crypto Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .coin-row:hover {
+      background-color: #f8fafc;
+    }
+    .dark .coin-row:hover {
+      background-color: #1f2937;
+    }
+    .price-up { color: #22c55e; }
+    .price-down { color: #ef4444; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+        <h1 class="text-2xl font-bold">CryptoPortfolio</h1>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-green-500 transition">Home</a>
+        <a href="trending-coins.html" class="text-green-500 font-medium">Trending</a>
+        <a href="how-to-buy-crypto.html" class="hover:text-green-500 transition">How to Buy</a>
+        <a href="where-to-buy-crypto.html" class="hover:text-green-500 transition">Where to Buy</a>
+        <a href="about.html" class="hover:text-green-500 transition">About</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+          <i class="fas fa-moon text-xl"></i>
+        </button>
+        <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-medium transition">
+          Connect Wallet
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-2">Trending Coins</h1>
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            Real-time trending cryptocurrencies • Updated just now
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+          <button onclick="filterCoins('all')" 
+                  class="active-filter px-6 py-2.5 bg-green-500 text-white rounded-2xl font-medium text-sm">
+            All Coins
+          </button>
+          <button onclick="filterCoins('gainers')" 
+                  class="px-6 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-2xl font-medium text-sm transition">
+            Top Gainers
+          </button>
+          <button onclick="filterCoins('losers')" 
+                  class="px-6 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-2xl font-medium text-sm transition">
+            Top Losers
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10">
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-white dark:bg-gray-900 p-5 rounded-3xl border border-gray-100 dark:border-gray-800">
+        <p class="text-sm text-gray-500">Market Cap</p>
+        <p class="text-2xl font-semibold mt-1">$2.48T</p>
+        <p class="text-green-500 text-sm flex items-center gap-1 mt-2">
+          <i class="fas fa-arrow-up"></i> +3.2%
+        </p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 p-5 rounded-3xl border border-gray-100 dark:border-gray-800">
+        <p class="text-sm text-gray-500">24h Volume</p>
+        <p class="text-2xl font-semibold mt-1">$98.4B</p>
+        <p class="text-red-500 text-sm flex items-center gap-1 mt-2">
+          <i class="fas fa-arrow-down"></i> -1.8%
+        </p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 p-5 rounded-3xl border border-gray-100 dark:border-gray-800">
+        <p class="text-sm text-gray-500">BTC Dominance</p>
+        <p class="text-2xl font-semibold mt-1">52.8%</p>
+        <p class="text-green-500 text-sm flex items-center gap-1 mt-2">
+          <i class="fas fa-arrow-up"></i> +0.4%
+        </p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 p-5 rounded-3xl border border-gray-100 dark:border-gray-800">
+        <p class="text-sm text-gray-500">Last Updated</p>
+        <p class="text-2xl font-semibold mt-1" id="last-updated">Just now</p>
+      </div>
+    </div>
+
+    <!-- Coins Table -->
+    <div class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+            <th class="py-5 px-6 text-left font-medium">#</th>
+            <th class="py-5 px-6 text-left font-medium">Coin</th>
+            <th class="py-5 px-6 text-right font-medium">Price</th>
+            <th class="py-5 px-6 text-right font-medium">24h %</th>
+            <th class="py-5 px-6 text-right font-medium">7d %</th>
+            <th class="py-5 px-6 text-right font-medium">Market Cap</th>
+            <th class="py-5 px-6 text-right font-medium">Volume (24h)</th>
+            <th class="py-5 px-6 text-center font-medium">Action</th>
+          </tr>
+        </thead>
+        <tbody id="coins-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Load More -->
+    <div class="text-center mt-10">
+      <button onclick="loadMoreCoins()" 
+              class="px-10 py-4 bg-gray-900 dark:bg-white dark:text-gray-900 text-white rounded-2xl font-medium hover:bg-black transition">
+        Load More Coins
+      </button>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-16 text-center text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+      Data is for demonstration purposes only. Cryptocurrency prices are highly volatile. 
+      Always do your own research before investing. This is not financial advice.
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">₿</div>
+            <h2 class="text-2xl font-bold">CryptoPortfolio</h2>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Your journey to smart crypto investing starts here.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="how-to-buy-crypto.html" class="hover:text-green-500">How to Buy Crypto</a></li>
+            <li><a href="where-to-buy-crypto.html" class="hover:text-green-500">Where to Buy</a></li>
+            <li><a href="trending-coins.html" class="hover:text-green-500">Trending Coins</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Legal</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="privacy.html" class="hover:text-green-500">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Follow Us</h3>
+          <div class="flex gap-4 text-2xl">
+            <a href="#" class="hover:text-green-500"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="hover:text-green-500"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center text-sm text-gray-500 mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        &copy; 2026 CryptoPortfolio. All rights reserved. | Not financial advice.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sample trending coins data
+    let coins = [
+      {
+        rank: 1,
+        name: "Bitcoin",
+        symbol: "BTC",
+        price: 68245.32,
+        change24h: 2.45,
+        change7d: -1.23,
+        marketCap: "1.34T",
+        volume: "42.8B"
+      },
+      {
+        rank: 2,
+        name: "Ethereum",
+        symbol: "ETH",
+        price: 2654.78,
+        change24h: 4.12,
+        change7d: 8.76,
+        marketCap: "319.2B",
+        volume: "28.9B"
+      },
+      {
+        rank: 3,
+        name: "Solana",
+        symbol: "SOL",
+        price: 142.85,
+        change24h: -3.67,
+        change7d: 12.45,
+        marketCap: "66.1B",
+        volume: "5.2B"
+      },
+      {
+        rank: 4,
+        name: "Binance Coin",
+        symbol: "BNB",
+        price: 612.45,
+        change24h: 1.89,
+        change7d: 3.21,
+        marketCap: "89.4B",
+        volume: "2.1B"
+      },
+      {
+        rank: 5,
+        name: "Ripple",
+        symbol: "XRP",
+        price: 0.58,
+        change24h: 6.78,
+        change7d: 15.34,
+        marketCap: "32.7B",
+        volume: "4.8B"
+      },
+      {
+        rank: 6,
+        name: "Cardano",
+        symbol: "ADA",
+        price: 0.45,
+        change24h: -2.12,
+        change7d: -4.56,
+        marketCap: "16.1B",
+        volume: "1.3B"
+      },
+      {
+        rank: 7,
+        name: "Dogecoin",
+        symbol: "DOGE",
+        price: 0.142,
+        change24h: 8.95,
+        change7d: 22.67,
+        marketCap: "20.6B",
+        volume: "3.7B"
+      }
+    ];
+
+    let displayedCount = 7;
+
+    function formatPrice(price) {
+      return price < 1 
+        ? '$' + price.toFixed(4) 
+        : '$' + price.toLocaleString('en-US');
+    }
+
+    function renderCoins(filteredCoins) {
+      const tbody = document.getElementById('coins-table');
+      tbody.innerHTML = '';
+
+      filteredCoins.forEach(coin => {
+        const row = document.createElement('tr');
+        row.className = `coin-row border-b border-gray-200 dark:border-gray-700 last:border-none`;
+
+        row.innerHTML = `
+          <td class="py-6 px-6 font-medium">${coin.rank}</td>
+          <td class="py-6 px-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center text-white font-bold text-sm">
+                ${coin.symbol.substring(0,1)}
+              </div>
+              <div>
+                <div class="font-semibold">${coin.name}</div>
+                <div class="text-xs text-gray-500">${coin.symbol}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-6 px-6 text-right font-medium">${formatPrice(coin.price)}</td>
+          <td class="py-6 px-6 text-right">
+            <span class="${coin.change24h >= 0 ? 'price-up' : 'price-down'} font-medium">
+              ${coin.change24h >= 0 ? '+' : ''}${coin.change24h}%
+            </span>
+          </td>
+          <td class="py-6 px-6 text-right">
+            <span class="${coin.change7d >= 0 ? 'price-up' : 'price-down'} font-medium">
+              ${coin.change7d >= 0 ? '+' : ''}${coin.change7d}%
+            </span>
+          </td>
+          <td class="py-6 px-6 text-right font-medium">$${coin.marketCap}</td>
+          <td class="py-6 px-6 text-right font-medium">$${coin.volume}</td>
+          <td class="py-6 px-6 text-center">
+            <button onclick="addToPortfolio('${coin.name}')" 
+                    class="px-5 py-2 text-sm bg-green-500 hover:bg-green-600 text-white rounded-2xl transition">
+              Add to Portfolio
+            </button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function filterCoins(type) {
+      let filtered = coins;
+
+      if (type === 'gainers') {
+        filtered = [...coins].sort((a, b) => b.change24h - a.change24h);
+      } else if (type === 'losers') {
+        filtered = [...coins].sort((a, b) => a.change24h - b.change24h);
+      }
+
+      renderCoins(filtered.slice(0, displayedCount));
+    }
+
+    function loadMoreCoins() {
+      displayedCount += 5;
+      renderCoins(coins.slice(0, displayedCount));
+    }
+
+    function addToPortfolio(coinName) {
+      alert(`✅ ${coinName} has been added to your portfolio!`);
+      // In a real app, this would update localStorage or send to backend
+    }
+
+    function updateLastUpdated() {
+      const timeEl = document.getElementById('last-updated');
+      let seconds = 0;
+
+      setInterval(() => {
+        seconds++;
+        if (seconds < 60) {
+          timeEl.textContent = `${seconds} seconds ago`;
+        } else {
+          timeEl.textContent = `${Math.floor(seconds/60)} minutes ago`;
+        }
+      }, 1000);
+    }
+
+    // Initialize page
+    function init() {
+      renderCoins(coins);
+      updateLastUpdated();
+    }
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+    }
+
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'true' || 
+        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+
+    // Run when page loads
+    window.onload = init;
+  </script>
+</body>
+</html>
