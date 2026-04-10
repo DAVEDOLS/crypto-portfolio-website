@@ -29,9 +29,9 @@
       
       <div class="hidden md:flex items-center gap-8">
         <a href="index.html" class="hover:text-green-500 transition">Home</a>
-        <a href="trending-coins.html" class="text-green-500 font-medium">Trending</a>
-        <a href="how-to-buy-crypto.html" class="hover:text-green-500 transition">How to Buy</a>
-        <a href="where-to-buy-crypto.html" class="hover:text-green-500 transition">Where to Buy</a>
+        <a href="trending-coin.html" class="text-green-500 font-medium">Trending</a>
+        <a href="how-to-buy.html" class="hover:text-green-500 transition">How to Buy</a>
+        <a href="where-to-buy.html" class="hover:text-green-500 transition">Where to Buy</a>
         <a href="about.html" class="hover:text-green-500 transition">About</a>
       </div>
 
@@ -39,10 +39,20 @@
         <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
           <i class="fas fa-moon text-xl"></i>
         </button>
-        <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-medium transition">
-          Connect Wallet
-        </a>
+        <button id="connect-wallet-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2.5 rounded-xl font-medium transition">
+          <i class="fas fa-wallet mr-1"></i><span id="connect-wallet-text">Connect Wallet</span>
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Toggle mobile menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
       </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 dark:border-gray-800 px-6 py-4 space-y-3">
+      <a href="index.html" class="block hover:text-green-500 transition">Home</a>
+      <a href="trending-coin.html" class="block text-green-500 font-medium">Trending</a>
+      <a href="how-to-buy.html" class="block hover:text-green-500 transition">How to Buy</a>
+      <a href="where-to-buy.html" class="block hover:text-green-500 transition">Where to Buy</a>
+      <a href="about.html" class="block hover:text-green-500 transition">About</a>
     </div>
   </nav>
 
@@ -58,6 +68,9 @@
         </div>
         
         <div class="flex flex-wrap gap-3">
+          <button onclick="refreshCoins()" class="px-6 py-2.5 bg-green-500 text-white rounded-2xl font-medium text-sm">
+            <i class="fas fa-rotate-right mr-1"></i>Refresh
+          </button>
           <button onclick="filterCoins('all')" 
                   class="active-filter px-6 py-2.5 bg-green-500 text-white rounded-2xl font-medium text-sm">
             All Coins
@@ -160,9 +173,9 @@
         <div>
           <h3 class="font-semibold mb-4">Resources</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="how-to-buy-crypto.html" class="hover:text-green-500">How to Buy Crypto</a></li>
-            <li><a href="where-to-buy-crypto.html" class="hover:text-green-500">Where to Buy</a></li>
-            <li><a href="trending-coins.html" class="hover:text-green-500">Trending Coins</a></li>
+            <li><a href="how-to-buy.html" class="hover:text-green-500">How to Buy Crypto</a></li>
+            <li><a href="where-to-buy.html" class="hover:text-green-500">Where to Buy</a></li>
+            <li><a href="trending-coin.html" class="hover:text-green-500">Trending Coins</a></li>
           </ul>
         </div>
         
@@ -190,124 +203,61 @@
   </footer>
 
   <script>
-    // Sample trending coins data
-    let coins = [
-      {
-        rank: 1,
-        name: "Bitcoin",
-        symbol: "BTC",
-        price: 68245.32,
-        change24h: 2.45,
-        change7d: -1.23,
-        marketCap: "1.34T",
-        volume: "42.8B"
-      },
-      {
-        rank: 2,
-        name: "Ethereum",
-        symbol: "ETH",
-        price: 2654.78,
-        change24h: 4.12,
-        change7d: 8.76,
-        marketCap: "319.2B",
-        volume: "28.9B"
-      },
-      {
-        rank: 3,
-        name: "Solana",
-        symbol: "SOL",
-        price: 142.85,
-        change24h: -3.67,
-        change7d: 12.45,
-        marketCap: "66.1B",
-        volume: "5.2B"
-      },
-      {
-        rank: 4,
-        name: "Binance Coin",
-        symbol: "BNB",
-        price: 612.45,
-        change24h: 1.89,
-        change7d: 3.21,
-        marketCap: "89.4B",
-        volume: "2.1B"
-      },
-      {
-        rank: 5,
-        name: "Ripple",
-        symbol: "XRP",
-        price: 0.58,
-        change24h: 6.78,
-        change7d: 15.34,
-        marketCap: "32.7B",
-        volume: "4.8B"
-      },
-      {
-        rank: 6,
-        name: "Cardano",
-        symbol: "ADA",
-        price: 0.45,
-        change24h: -2.12,
-        change7d: -4.56,
-        marketCap: "16.1B",
-        volume: "1.3B"
-      },
-      {
-        rank: 7,
-        name: "Dogecoin",
-        symbol: "DOGE",
-        price: 0.142,
-        change24h: 8.95,
-        change7d: 22.67,
-        marketCap: "20.6B",
-        volume: "3.7B"
-      }
-    ];
-
-    let displayedCount = 7;
+    let coins = [];
+    let displayedCount = 10;
+    let currentFilter = 'all';
+    let connectedWalletAddress = '';
 
     function formatPrice(price) {
-      return price < 1 
-        ? '$' + price.toFixed(4) 
-        : '$' + price.toLocaleString('en-US');
+      return price < 1 ? '$' + price.toFixed(4) : '$' + price.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    }
+
+    function formatCompact(value) {
+      return '$' + Number(value || 0).toLocaleString('en-US', { notation: 'compact', maximumFractionDigits: 2 });
+    }
+
+    function setActiveFilterButton(type) {
+      document.querySelectorAll('button[onclick^="filterCoins"]').forEach((btn) => {
+        btn.classList.remove('bg-green-500', 'text-white');
+      });
+      const active = document.querySelector(`button[onclick="filterCoins('${type}')"]`);
+      if (active) active.classList.add('bg-green-500', 'text-white');
     }
 
     function renderCoins(filteredCoins) {
       const tbody = document.getElementById('coins-table');
       tbody.innerHTML = '';
 
-      filteredCoins.forEach(coin => {
+      filteredCoins.forEach((coin) => {
         const row = document.createElement('tr');
-        row.className = `coin-row border-b border-gray-200 dark:border-gray-700 last:border-none`;
+        row.className = 'coin-row border-b border-gray-200 dark:border-gray-700 last:border-none';
 
         row.innerHTML = `
-          <td class="py-6 px-6 font-medium">${coin.rank}</td>
+          <td class="py-6 px-6 font-medium">${coin.market_cap_rank || '-'}</td>
           <td class="py-6 px-6">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center text-white font-bold text-sm">
-                ${coin.symbol.substring(0,1)}
-              </div>
+              <img src="${coin.image}" alt="${coin.name}" class="w-8 h-8 rounded-full" />
               <div>
                 <div class="font-semibold">${coin.name}</div>
-                <div class="text-xs text-gray-500">${coin.symbol}</div>
+                <div class="text-xs text-gray-500">${coin.symbol.toUpperCase()}</div>
               </div>
             </div>
           </td>
-          <td class="py-6 px-6 text-right font-medium">${formatPrice(coin.price)}</td>
+          <td class="py-6 px-6 text-right font-medium">${formatPrice(coin.current_price)}</td>
           <td class="py-6 px-6 text-right">
-            <span class="${coin.change24h >= 0 ? 'price-up' : 'price-down'} font-medium">
-              ${coin.change24h >= 0 ? '+' : ''}${coin.change24h}%
+            <span class="${coin.price_change_percentage_24h >= 0 ? 'price-up' : 'price-down'} font-medium">
+              ${coin.price_change_percentage_24h >= 0 ? '+' : ''}${(coin.price_change_percentage_24h || 0).toFixed(2)}%
             </span>
           </td>
           <td class="py-6 px-6 text-right">
-            <span class="${coin.change7d >= 0 ? 'price-up' : 'price-down'} font-medium">
-              ${coin.change7d >= 0 ? '+' : ''}${coin.change7d}%
+            <span class="${coin.price_change_percentage_7d_in_currency >= 0 ? 'price-up' : 'price-down'} font-medium">
+              ${coin.price_change_percentage_7d_in_currency >= 0 ? '+' : ''}${(coin.price_change_percentage_7d_in_currency || 0).toFixed(2)}%
             </span>
           </td>
-          <td class="py-6 px-6 text-right font-medium">$${coin.marketCap}</td>
-          <td class="py-6 px-6 text-right font-medium">$${coin.volume}</td>
+          <td class="py-6 px-6 text-right font-medium">${formatCompact(coin.market_cap)}</td>
+          <td class="py-6 px-6 text-right font-medium">${formatCompact(coin.total_volume)}</td>
           <td class="py-6 px-6 text-center">
-            <button onclick="addToPortfolio('${coin.name}')" 
+            <button onclick="addToPortfolio('${coin.name}')"
                     class="px-5 py-2 text-sm bg-green-500 hover:bg-green-600 text-white rounded-2xl transition">
               Add to Portfolio
             </button>
@@ -318,60 +268,71 @@
     }
 
     function filterCoins(type) {
-      let filtered = coins;
+      currentFilter = type;
+      setActiveFilterButton(type);
 
-      if (type === 'gainers') {
-        filtered = [...coins].sort((a, b) => b.change24h - a.change24h);
-      } else if (type === 'losers') {
-        filtered = [...coins].sort((a, b) => a.change24h - b.change24h);
-      }
+      let filtered = coins;
+      if (type === 'gainers') filtered = [...coins].sort((a, b) => (b.price_change_percentage_24h || 0) - (a.price_change_percentage_24h || 0));
+      if (type === 'losers') filtered = [...coins].sort((a, b) => (a.price_change_percentage_24h || 0) - (b.price_change_percentage_24h || 0));
 
       renderCoins(filtered.slice(0, displayedCount));
     }
 
     function loadMoreCoins() {
-      displayedCount += 5;
-      renderCoins(coins.slice(0, displayedCount));
+      displayedCount += 10;
+      filterCoins(currentFilter);
     }
 
     function addToPortfolio(coinName) {
-      alert(`✅ ${coinName} has been added to your portfolio!`);
-      // In a real app, this would update localStorage or send to backend
+      alert(`✅ ${coinName} has been added to your portfolio watchlist!`);
     }
 
-    function updateLastUpdated() {
-      const timeEl = document.getElementById('last-updated');
-      let seconds = 0;
-
-      setInterval(() => {
-        seconds++;
-        if (seconds < 60) {
-          timeEl.textContent = `${seconds} seconds ago`;
-        } else {
-          timeEl.textContent = `${Math.floor(seconds/60)} minutes ago`;
-        }
-      }, 1000);
+    async function refreshCoins() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h,7d');
+        if (!response.ok) throw new Error('Failed to fetch coins');
+        coins = await response.json();
+        filterCoins(currentFilter);
+        document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+      } catch (error) {
+        document.getElementById('last-updated').textContent = 'Refresh failed';
+      }
     }
 
-    // Initialize page
-    function init() {
-      renderCoins(coins);
-      updateLastUpdated();
+    function formatWalletAddress(address) {
+      if (!address) return 'Connect Wallet';
+      return `${address.slice(0, 6)}...${address.slice(-4)}`;
     }
 
-    // Dark mode toggle
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert('No wallet detected. Please install MetaMask.');
+        return;
+      }
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      connectedWalletAddress = accounts[0] || '';
+      document.getElementById('connect-wallet-text').textContent = formatWalletAddress(connectedWalletAddress);
+    }
+
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     }
 
-    // Load dark mode preference
-    if (localStorage.getItem('darkMode') === 'true' || 
-        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
+    async function init() {
+      document.getElementById('connect-wallet-btn').addEventListener('click', connectWallet);
+      document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      });
+
+      if (localStorage.getItem('darkMode') === 'true' ||
+          (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+
+      await refreshCoins();
     }
 
-    // Run when page loads
     window.onload = init;
   </script>
 </body>
